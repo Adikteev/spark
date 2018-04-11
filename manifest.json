@@ -1,9 +1,9 @@
 {
     "cli_version": "0.5.19",
-    "spark_version": "2.2.1",
+    "spark_version": "2.3.0",
     "default_spark_dist": {
-        "hadoop_version": "2.6",
-        "uri": "https://downloads.mesosphere.com/spark/assets/spark-2.2.1-2-beta-bin-2.6.tgz"
+        "hadoop_version": "2.7",
+        "uri": "http://apache.mirrors.ovh.net/ftp.apache.org/dist/spark/spark-2.3.0/spark-2.3.0-bin-hadoop2.7.tgz"
     },
     "spark_dist": [
         {
@@ -12,7 +12,7 @@
         },
         {
             "hadoop_version": "2.7",
-            "uri": "https://downloads.mesosphere.com/spark/assets/spark-2.2.1-2-beta-bin-2.7.tgz"
+            "uri": "http://apache.mirrors.ovh.net/ftp.apache.org/dist/spark/spark-2.3.0/spark-2.3.0-bin-hadoop2.7.tgz"
         }
     ]
 }

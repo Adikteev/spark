@@ -25,6 +25,16 @@ RUN apt-get update && apt-get install -y \
 RUN add-apt-repository -y ppa:longsleep/golang-backports && apt-get update && apt-get install -y golang-go
 # AWS CLI for uploading build artifacts
 RUN pip install awscli
+RUN packages=' \
+      numpy \
+      pandasql \
+      scipy \
+      scikit-learn \
+      numpy \
+      xgboost \
+   ' \
+   && pip3 install $packages 
+
 # Install dcos-launch to create clusters for integration testing
 RUN apt-get install -y python3-venv
 RUN wget https://downloads.dcos.io/dcos-launch/bin/linux/dcos-launch -O /usr/bin/dcos-launch

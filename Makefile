@@ -64,14 +64,14 @@ prod-dist: $(SPARK_DIR)
 	cd $(SPARK_DIR)
 	rm -rf spark-*.tgz
 	if [ -f make-distribution.sh ]; then \
-		./make-distribution.sh --tgz "-Phadoop-$(HADOOP_VERSION)" -Phive -Phive-thriftserver -DskipTests; \
+		./make-distribution.sh --tgz "-Phadoop-$(HADOOP_VERSION)" -Phive -Phive-thriftserver -DskipTests -Phadoop-cloud; \
 	else \
 		if [ -n $(does_profile_exist,mesos) ]; then \
 			MESOS_PROFILE="-Pmesos"; \
 		else \
 			MESOS_PROFILE=""; \
 		fi; \
-		./dev/make-distribution.sh --tgz "$${MESOS_PROFILE}" "-Phadoop-$(HADOOP_VERSION)" -Pnetlib-lgpl -Psparkr -Phive -Phive-thriftserver -DskipTests; \
+		./dev/make-distribution.sh --tgz "$${MESOS_PROFILE}" "-Phadoop-$(HADOOP_VERSION)" -Pnetlib-lgpl -Psparkr -Phive -Phive-thriftserver -Phadoop-cloud -DskipTests; \
 	fi; \
 	mkdir -p $(DIST_DIR)
 	cp spark-*.tgz $(DIST_DIR)
