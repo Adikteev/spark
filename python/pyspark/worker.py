@@ -95,7 +95,7 @@ def wrap_grouped_map_pandas_udf(f, return_type):
     def wrapped(*series):
         import pandas as pd
 
-        result = f(pd.concat(series, axis=1))
+        result = f(pd.concat(*series, axis=1))
         if not isinstance(result, pd.DataFrame):
             raise TypeError("Return type of the user-defined function should be "
                             "pandas.DataFrame, but is {}".format(type(result)))
@@ -135,11 +135,16 @@ def read_udfs(pickleSer, infile, eval_type):
     num_udfs = read_int(infile)
     udfs = {}
     call_udf = []
-    for i in range(num_udfs):
-        arg_offsets, udf = read_single_udf(pickleSer, infile, eval_type)
-        udfs['f%d' % i] = udf
-        args = ["a[%d]" % o for o in arg_offsets]
-        call_udf.append("f%d(%s)" % (i, ", ".join(args)))
+    if eval_type == PythonEvalType.SQL_GROUPED_MAP_PANDAS_UDF:
+        for i in range(num_udfs):
+            udfs['f%d' % i] = udf
+            call_udf.append("f%d(a)" % (i))
+    else:
+        for i in range(num_udfs):
+            arg_offsets, udf = read_single_udf(pickleSer, infile, eval_type)
+            udfs['f%d' % i] = udf
+            args = ["a[%d]" % o for o in arg_offsets]
+            call_udf.append("f%d(%s)" % (i, ", ".join(args)))
     # Create function like this:
     #   lambda a: (f0(a0), f1(a1, a2), f2(a3))
     # In the special case of a single UDF this will return a single result rather
