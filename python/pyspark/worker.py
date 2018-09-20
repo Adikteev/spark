@@ -137,6 +137,7 @@ def read_udfs(pickleSer, infile, eval_type):
     call_udf = []
     if eval_type == PythonEvalType.SQL_GROUPED_MAP_PANDAS_UDF:
         for i in range(num_udfs):
+            arg_offsets, udf = read_single_udf(pickleSer, infile, eval_type)
             udfs['f%d' % i] = udf
             call_udf.append("f%d(a)" % (i))
     else:
