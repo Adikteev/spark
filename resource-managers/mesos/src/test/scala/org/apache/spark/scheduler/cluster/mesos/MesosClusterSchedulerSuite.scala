@@ -57,7 +57,7 @@ class MesosClusterSchedulerSuite extends SparkFunSuite with LocalSparkContext wi
     scheduler.registered(driver, Utils.TEST_FRAMEWORK_ID, Utils.TEST_MASTER_INFO)
   }
 
-  private def testDriverDescription(submissionId: String): MesosDriverDescription = {
+  private def testDriverDescription(submissionId: String, props: Map[String, String] = Map[String, String]()): MesosDriverDescription = {
     new MesosDriverDescription(
       "d1",
       "jar",
@@ -65,7 +65,7 @@ class MesosClusterSchedulerSuite extends SparkFunSuite with LocalSparkContext wi
       1,
       true,
       command,
-      Map[String, String](),
+      props,
       submissionId,
       new Date())
   }
