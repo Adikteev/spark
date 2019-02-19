@@ -464,7 +464,7 @@ private[spark] class MesosClusterScheduler(
     containerInfo
   }
 
-  private def getDriverCommandValue(desc: MesosDriverDescription): String = {
+  private[scheduler] def getDriverCommandValue(desc: MesosDriverDescription): String = {
     val dockerDefined = desc.conf.contains("spark.mesos.executor.docker.image")
     val executorUri = getDriverExecutorURI(desc)
     // Gets the path to run spark-submit, and the path to the Mesos sandbox.
